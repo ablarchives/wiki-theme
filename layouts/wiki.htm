@@ -1,0 +1,102 @@
+description = "Navigation sidebar with right content"
+
+==
+
+/*
+ * Provide the sidebar items
+ */
+function onStart()
+{
+  $content = scandir(themes_path('wiki/content'));
+  unset($content[0], $content[1]);
+  $content = array_values($content);
+  foreach($content as $folder){
+    if($folder != 'readme.md'){
+      if($folder_content = scandir(themes_path('wiki/content/'.$folder))){
+        unset($folder_content[0], $folder_content[1]);
+        $folder_content = array_values($folder_content);
+        $folders[$folder] = $folder_content;
+      }
+    }
+    else{
+      $folders[$folder] = $folder;
+    }
+  }
+  $this['sidebaritems'] = $folders;
+}
+
+==
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{{'assets/vendor/bootstrap4/css/bootstrap.min.css'|theme}}"> <!-- bootstrap -->
+    <link rel="stylesheet" href="{{'assets/css/wiki.css'|theme}}"> <!-- theme -->
+    <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet"> <!-- emoji -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,600,700&amp;display=swap" rel="stylesheet"> <!-- font --->
+    {% styles %}
+
+    <title>{{this.page.title}} | Albright Labs</title>
+
+    <!-- analytics -->
+    <!-- og tags -->
+  </head>
+  <body>
+
+    <section>
+      <div id="sidebarToggle" class="navbar-light d-lg-none">
+        <span class="navbar-toggler-icon"></span>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div id="sidebar" class="col-12 d-none d-lg-flex col-lg-3 p-4 p-lg-5">
+            <div id="sidebarToggle" class="closer navbar-light d-lg-none">
+              <span class="close text-danger">&times;</span>
+            </div>
+            <div class="inner pt-1 pl-lg-2">
+              {% partial 'sidebar' %}
+            </div>
+          </div>
+          <div id="content" class="col-12 col-lg-9 p-4 p-lg-5">
+            <div class="inner pt-5 pb-1 pt-lg-0 pb-lg-0 pl-lg-2">
+              {% partial 'content' %}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div id="footer" class="col p-4 p-lg-5">
+            {% partial 'footer' %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="{{'assets/vendor/jquery/jquery.min.js'|theme}}"></script> <!-- jquery -->
+    <script src="{{'assets/vendor/popper/popper.min.js'|theme}}"></script> <!-- popper -->
+    <script src="{{'assets/vendor/bootstrap4/js/bootstrap.min.js'|theme}}"></script> <!-- bootstrap -->
+    {% framework extras %}
+    {% scripts %}
+    <script>
+      $('html').on('click', '#sidebarToggle', function(){
+        $('#sidebar').toggleClass('d-none');
+      });
+    </script>
+    <script>
+      $('html').on('click', '#sidebar .folder', function(){
+        var files = $(this).next('.files');
+        if(files.hasClass('closed')){
+          files.removeClass('closed');
+          files.addClass('opened');
+        }else{
+          files.removeClass('opened');
+          files.addClass('closed');
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+title="Single File"
+description="Single file viewer"
+url="/:filename"
+layout="wiki"
+
+==
+
+/*
+ * Get the single file content
+ */
+function onStart()
+{
+    $filename = $this->param('filename', 'readme');
+    if ($filename !== 'readme') {
+      return Redirect::to('/404');
+    }
+    $this['filename'] = $filename = strtolower($filename);
+
+    $this->page['title'] = $this->page['meta_title'] = $this->page['meta_title'] = ucwords(str_replace('.md', '', str_replace('-', ' ', $filename)));
+}
+
+==
+
+{% content filename ~ '.md' %}

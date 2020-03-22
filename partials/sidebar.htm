@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col">
+    <a href="{{'home'|page}}"><img class="img-fluid mb-2" src="{{'assets/images/logo.png'|theme}}" alt="Application Logo" /></a>
+  </div>
+</div>
+<div class="row mt-5">
+  {% for key,items in sidebaritems %}
+    <div class="col-12 mb-2 {% if '.md' not in key %}folder{% endif %}">
+      <a {% if '.md' in key %}href="{{'filename'|page({filename: key|replace({'.md':''})})}}"{% endif %} class="text-decoration-none text-primary">{% if '.md' in key %}<i class="em em-page_facing_up mr-2" aria-role="presentation" aria-label="PAGE FACING UP"></i>{% else %}<i class="em em-file_folder mr-2" aria-role="presentation" aria-label="FILE FOLDER"></i>{% endif %}{{key|replace({'-':' ', '.md':''})|title}}</a>
+    </div>
+    {% if items|length > 0 %}
+      <div class="col-12 mb-2 pl-5 files {% if filename~'.md' in items %}{% else %}closed{% endif %}">
+        {% for key2,item in items %}
+          <div class="row">
+            <div class="col">
+              <a href="{{'folder/filename'|page({folder: key|replace({'.md':''}), filename: item|replace({'.md':''})})}}" class="text-decoration-none"><i class="em em-page_facing_up mr-2" aria-role="presentation" aria-label="PAGE FACING UP"></i>{{item|replace({'-':' ', '.md':''})|title}}</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

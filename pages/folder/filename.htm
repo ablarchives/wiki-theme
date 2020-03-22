@@ -1,0 +1,25 @@
+url="/folder/:folder/:filename"
+title="Wiki"
+layout="wiki"
+meta_title=""
+meta_description=""
+meta_keywords=""
+
+==
+
+/*
+ * Get the single file content and parent directory
+ */
+function onStart()
+{
+  $folder = $this->param('folder');
+  $this['folder'] = $folder = strtolower($folder);
+  $filename = $this->param('filename');
+  $this['filename'] = $filename = strtolower($filename);
+
+  $this->page['title'] = $this->page['meta_title'] = ucwords(str_replace('.md', '', str_replace('-', ' ', $filename))).' | '.ucwords(str_replace('.md', '', str_replace('-', ' ', $folder)));
+}
+
+==
+
+{% content '/' ~ folder ~ '/' ~ filename ~ '.md' %}
