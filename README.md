@@ -19,7 +19,7 @@ There are two options:
 **Usage**  
 1. Install theme, activate via administration area settings or file based configuration.
 2. Add directories to `content` directories--this is intended to be used as wiki categories.
-3. Add markdown files either directly to the `content` directory or any of the directories inside.
+3. Add markdown files either directly to the `content` directory or any of the directories inside.  
 *Note: directory support in the theme's content directory is limited to a single depth.*
 
 **Contribute**  
