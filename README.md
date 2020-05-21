@@ -6,7 +6,6 @@ A simple October theme for simple, flat-file informational websites.
 **Features**  
 - Provides a simple theme
 - Content managed by adding directories and markdown files to the theme's `content` directory
--
 
 **Install**  
 There are two options:
